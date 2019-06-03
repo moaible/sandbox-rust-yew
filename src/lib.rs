@@ -6,7 +6,6 @@ extern crate yew;
 use stdweb::web::Node;
 use stdweb::unstable::TryFrom;
 use yew::html;
-use yew::virtual_dom::VNode;
 
 pub struct Model {
     pub value: i64,
@@ -30,27 +29,12 @@ impl html::Component for Model {
     }
 }
 
-
-const SVG: &str = r#"
-<h2>Inline SVG or <i>any</i> HTML:</h2>
-<svg height="250" width="500">
-  <polygon points="220,10 300,210 170,250 123,234" style="fill:lime;stroke:purple;stroke-width:1" />
-    Sorry, your browser does not support inline SVG.
-</svg>
-"#;
-
 impl html::Renderable<Model> for Model {
     fn view(&self) -> html::Html<Self> {
-        let js_svg = js! {
-            var div = document.createElement("div");
-            div.innerHTML = @{SVG.to_string()};
-            console.log(div);
-            return div;
-        };
-        eprintln!("js_svg: {:?}", js_svg);
-        let node = Node::try_from(js_svg).expect("convert js_svg");
-        let vnode = VNode::VRef(node);
-        eprintln!("svg: {:?}", vnode);
-        vnode
+        html! {
+            <>
+                <h1>{ "Sample Title" }</h1>
+            </>
+        }
     }
 }
